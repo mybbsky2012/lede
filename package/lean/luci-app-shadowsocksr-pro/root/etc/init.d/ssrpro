@@ -349,9 +349,8 @@ add_rule()
 			iptables -t nat -I OUTPUT -p tcp -m multiport --dports 80,443 -m set --match-set $vt_gfwlist dst -j REDIRECT --to $SS_REDIR_PORT
 			;;
 		V)
-			vt_np_ipset=""
-			ipset -! create $vt_gfwlist hash:ip maxelem 65536 2>/dev/null
-			iptables -t nat -A shadowsocksr_pre -m set ! --match-set $vt_gfwlist dst -j RETURN
+			iptables -t nat -A shadowsocksr_pre -m set ! --match-set $vt_np_ipset dst -j RETURN
+			iptables -t nat -I OUTPUT -p tcp -m multiport --dports 80,443 -m set --match-set $vt_np_ipset dst -j REDIRECT --to $SS_REDIR_PORT
 			;;
 	esac
 	local subnet
@@ -370,6 +369,7 @@ del_rule()
 	
 	iptables -t nat -D OUTPUT -p tcp -m multiport --dports 80,443 -m set --match-set china-banned dst -j REDIRECT --to $SS_REDIR_PORT 2>/dev/null
 	iptables -t nat -D OUTPUT -p tcp -m multiport --dports 80,443 -m set ! --match-set $vt_np_ipset dst -j REDIRECT --to $SS_REDIR_PORT 2>/dev/null
+	iptables -t nat -D OUTPUT -p tcp -m multiport --dports 80,443 -m set --match-set $vt_np_ipset dst -j REDIRECT --to $SS_REDIR_PORT 2>/dev/null
 	
 	/usr/bin/ip rule del fwmark 0x01/0x01 table 100
 	/usr/bin/ip route del local 0.0.0.0/0 dev lo table 100
