@@ -1,0 +1,5 @@
+
+config interface 'wan'
+	option download '100000'
+	option upload '100000'
+

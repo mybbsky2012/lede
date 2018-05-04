@@ -1,0 +1,17 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "wtBRMon setting"
+msgstr "wtBRMon设置"
+
+msgid "units Mb/s"
+msgstr "单位Mb/s"
+
+msgid "Upload bandwidth"
+msgstr "上传带宽"
+
+msgid "Download bandwidth"
+msgstr "下载带宽"
+
+msgid "bandwidth Monitor"
+msgstr "带宽监控"
