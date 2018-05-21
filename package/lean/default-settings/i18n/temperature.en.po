@@ -1,0 +1,8 @@
+msgid "Cpu Temp"
+msgstr "CPU Temperature"
+
+msgid "Ddr Temp"
+msgstr "RAM Temperature"
+
+msgid "Wifi Temp"
+msgstr "Wi-Fi Temperature"
