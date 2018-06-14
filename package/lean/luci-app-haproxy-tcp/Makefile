@@ -10,8 +10,9 @@ PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 include $(INCLUDE_DIR)/package.mk
 
 define Package/$(PKG_NAME)
-	CATEGORY:=Utilities
-	SUBMENU:=Luci
+	SECTION:=luci
+	CATEGORY:=LuCI
+	SUBMENU:=3. Applications
 	TITLE:=luci for haproxy and shadowsocks
 	PKGARCH:=all
 	DEPENDS:=+haproxy
@@ -28,6 +29,7 @@ echo stopping haproxy
 /etc/init.d/haproxy stop
 /etc/init.d/haproxy disable
 echo haproxy disabled
+exit 0
 endef
 
 define Build/Prepare
