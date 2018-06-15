@@ -48,7 +48,7 @@ listen admin_stats
   stats refresh 30s               #节点统计页面自动刷新时间
   stats uri /haproxy              #节点统计页面url
   stats realm Haproxy             #统计页面密码框上提示文本
-  stats auth admin:root           #设置监控页面的用户和密码:admin,可以设置多个用户名
+  #stats auth admin:root           #设置监控页面的用户和密码:admin,可以设置多个用户名
   stats  admin if TRUE            #设置手工启动/禁用，后端服务器(haproxy-1.4.9以后版本)
 frontend ss-in
 	bind 127.0.0.1:2222

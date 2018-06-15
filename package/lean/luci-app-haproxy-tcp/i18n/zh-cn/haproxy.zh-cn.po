@@ -28,7 +28,5 @@ msgstr "备用服务器列表"
 msgid "validate"
 msgstr "生效"
 
-
-
-
-
+msgid "HAProxy"
+msgstr "负载均衡"

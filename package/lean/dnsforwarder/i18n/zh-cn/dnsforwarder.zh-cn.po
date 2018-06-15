@@ -6,3 +6,6 @@ msgstr "运行中"
 
 msgid "Not running"
 msgstr "未运行"
+
+msgid "dnsforwarder"
+msgstr "DNS转发器"

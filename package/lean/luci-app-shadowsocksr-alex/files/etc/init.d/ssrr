@@ -276,15 +276,16 @@ EOF
 				#开启dnsforwarder
 				start_dnsforwarder "$vt_safe_dns" "$vt_dns_mode"
 				;;
+			oversea)#只代理中国大陆IP
+				iptables -t nat -A ssrr_pre -s $host -m set ! --match-set $vt_np_ipset dst -j RETURN
+				iptables -t mangle -A SSRUDP -s $host -j RETURN
+				;;
 			game)
 				iptables -t nat -A ssrr_pre -s $host  -m set --match-set $vt_np_ipset dst -j RETURN
 				iptables -t mangle -A SSRUDP -s $host  -m set --match-set $vt_np_ipset dst -j RETURN
 				iptables -t mangle -A SSRUDP -s $host  -p udp -j TPROXY --on-port $SS_REDIR_PORT --tproxy-mark 0x01/0x01
 				;;
 			all)
-				;;
-
-			normal)
 				;;
 		esac
 		iptables -t nat -A ssrr_pre -s $host -p tcp -j REDIRECT --to $SS_REDIR_PORT #内网访问控制
@@ -302,6 +303,9 @@ EOF
 			ipset create $vt_gfwlist hash:net family inet hashsize 1024 maxelem 65536 2>/dev/null
 			iptables -t nat -A ssrr_pre -m set ! --match-set $vt_gfwlist dst -j RETURN
 			iptables -t nat -A ssrr_pre -m set --match-set $vt_np_ipset dst -j RETURN
+			;;
+		V)#ross:只代理中国大陆IP
+			iptables -t nat -A ssrr_pre -m set ! --match-set $vt_np_ipset dst -j RETURN
 			;;
 		GAME)#alex:游戏模式
 			iptables -t nat -A ssrr_pre -m set --match-set $vt_np_ipset dst -j RETURN
