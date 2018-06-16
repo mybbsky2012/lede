@@ -1,6 +1,6 @@
 #!/bin/sh
 
-/etc/dnsforwarder/gen-gfwlist.sh > /tmp/ol-gfw.txt
+sh /etc/dnsforwarder/gen-gfwlist.sh > /tmp/ol-gfw.txt
 
 if [ -s "/tmp/ol-gfw.txt" ];then
 	sort -u /etc/dnsforwarder/base-gfwlist.txt /tmp/ol-gfw.txt > /tmp/china-banned
