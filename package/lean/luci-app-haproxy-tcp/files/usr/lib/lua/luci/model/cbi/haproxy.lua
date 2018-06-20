@@ -21,6 +21,10 @@ s=m:section(TypedSection,"arguments","")
 	s.addremove=false
 	s.anonymous=true
 	view_enable = s:option(Flag,"enabled",translate("Enable"))
+	balance=s:option(ListValue,"balance",translate("Balance Strategy"))
+	balance:value("roundrobin",translate("roundrobin"))
+	balance:value("leastconn",translate("leastconn"))
+	balance:value("source",translate("source"))
 	--通过读写配置文件控制HAProxy这种方式已经弃用
 	--view_cfg = s:option(TextValue, "1", nil)
 	--view_cfg.rmempty = false
@@ -40,8 +44,8 @@ s=m:section(TypedSection,"main_server",translate("Main Server List"))
 
 	o=s:option(Flag,"validate",translate("validate"))
 
-	o=s:option(Value,"server_ip",translate("Proxy Server IP"))
-	o.datatype="ip4addr"
+	o=s:option(Value,"server_ip",translate("Proxy Server Address"))
+	o.datatype="host"
 	o=s:option(Value,"server_port",translate("Proxy Server Port"))
 	o.datatype="uinteger"
 	o=s:option(Value,"server_weight",translate("Weight"))
@@ -55,8 +59,8 @@ s=m:section(TypedSection,"backup_server",translate("Backup Server List"))
 
 	o=s:option(Flag,"validate",translate("validate"))
 
-	o=s:option(Value,"server_ip",translate("Proxy Server IP"))
-	o.datatype="ip4addr"
+	o=s:option(Value,"server_ip",translate("Proxy Server Address"))
+	o.datatype="host"
 	o=s:option(Value,"server_port",translate("Proxy Server Port"))
 	o.datatype="uinteger"
 -- ---------------------------------------------------
