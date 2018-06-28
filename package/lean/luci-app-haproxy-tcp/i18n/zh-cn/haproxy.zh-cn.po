@@ -41,4 +41,4 @@ msgid "source"
 msgstr "源IP地址"
 
 msgid "HAProxy"
-msgstr "负载均衡"
+msgstr "HA负载均衡"
