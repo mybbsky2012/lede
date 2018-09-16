@@ -53,7 +53,7 @@
 			swap       = swapinfo,
 			connmax    = conn_max,
 			conncount  = conn_count,
-			wifinets   = stat.wifi_networks()
+			wifinets   = stat.wifi_networks(),
 			cpu_temp   = luci.sys.exec("cat /sys/class/hwmon/hwmon1/temp1_input"),
 			ddr_temp   = luci.sys.exec("cat /sys/class/hwmon/hwmon0/temp1_input"),
 			wifi_temp  = luci.sys.exec("cat /sys/class/hwmon/hwmon0/temp2_input")
