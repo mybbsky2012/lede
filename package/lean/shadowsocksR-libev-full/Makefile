@@ -1,13 +1,13 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=shadowsocksr-libev
-PKG_VERSION:=2.5.3
-PKG_RELEASE:=1
+PKG_NAME:=shadowsocksR-libev
+PKG_VERSION:=3.0.9
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_RELEASE).tar.gz
-PKG_SOURCE_URL:=https://github.com/shadowsocksrr/shadowsocksr-libev.git
+PKG_SOURCE_URL:=https://github.com/shadowsocksrr/shadowsocksr-libev
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=d63ff863800a5645aca4309d5dd5962bd1e95543
+PKG_SOURCE_VERSION:=d4904568c0bd7e0861c0cbfeaa43740f404db214
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_MAINTAINER:=breakwa11
 
@@ -168,9 +168,13 @@ ifeq ($(BUILD_VARIANT),polarssl)
 endif
 
 define Package/shadowsocksr-libev/install
+	#$(INSTALL_DIR) $(1)/etc/init.d
+	#$(INSTALL_BIN) ./files/shadowsocksr $(1)/etc/init.d/shadowsocksr
+	#$(INSTALL_CONF) ./files/shadowsocksr.json $(1)/etc/shadowsocksr.json
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/ss-local $(1)/usr/bin/ssr-local
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/ss-redir $(1)/usr/bin/ssr-redir
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/src/ss-check $(1)/usr/bin/ssr-check
 	$(LN) ssr-local $(1)/usr/bin/ssr-tunnel
 endef
 
