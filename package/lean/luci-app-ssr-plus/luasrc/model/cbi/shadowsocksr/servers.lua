@@ -10,10 +10,6 @@ m = Map(shadowsocksr,  translate("Servers subscription and manage"))
 s = m:section(TypedSection, "server_subscribe")
 s.anonymous = true
 
-o = s:option(ListValue, "tool", translate("Proxy Tool"))
-o:value("0", translate("ShadowsocksR"))
-o:value("1", translate("Shadowsocks"))
-
 o = s:option(Flag, "auto_update", translate("Auto Update"))
 o.rmempty = false
 o.description = translate("Auto Update Server subscription, GFW list and CHN route")
@@ -72,9 +68,13 @@ function o.cfgvalue(...)
 	return Value.cfgvalue(...) or "?"
 end
 
+if nixio.fs.access("/usr/bin/ssr-kcptun") then
+
 o = s:option(DummyValue, "kcp_enable", translate("KcpTun"))
 function o.cfgvalue(...)
 	return Value.cfgvalue(...) or "?"
+end
+
 end
 
 o = s:option(DummyValue, "switch_enable", translate("Auto Switch"))
