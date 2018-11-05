@@ -5,11 +5,11 @@
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=LuCI support for Wrtbwmon
-LUCI_DEPENDS:=+luci-app-nlbwmon
+LUCI_TITLE:=LuCI support for ttyd
+LUCI_DEPENDS:=+ttyd
 LUCI_PKGARCH:=all
 PKG_VERSION:=1.0
-PKG_RELEASE:=7
+PKG_RELEASE:=1
 
 include $(TOPDIR)/feeds/luci/luci.mk
 
