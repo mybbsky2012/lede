@@ -1,56 +1,48 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=dnsforwarder
-PKG_VERSION:=6
-PKG_RELEASE:=2
-PKG_MAINTAINER:=Alex Zhuo <1886090@gmail.com>
+PKG_VERSION:=6.1.15
+PKG_RELEASE:=5
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/holmium/dnsforwarder.git
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=0861035377478e4950d7060f590ae997a5f4eb92
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-6
-
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
-
+PKG_SOURCE_VERSION:=587e61ae4d75dc976f538088b715a3c8ee26c144
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+PKG_MAINTAINER:=Dennis <openwrt@tossp.com>
+PKG_LICENSE:=GPL-3.0
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/dnsforwarder
+define Package/$(PKG_NAME)
   SECTION:=net
   CATEGORY:=Network
   TITLE:=A simple DNS forwarder
   URL:=https://github.com/holmium/dnsforwarder
-  DEPENDS:=+wget +ipset +dnsmasq-full +libpthread +coreutils-base64
+  DEPENDS:=+wget +dnsmasq-full +libpthread +coreutils-base64
 endef
 
-define Package/dnsforwarder/description
+define Package/$(PKG_NAME)/description
 Forwarding queries to customized domains (and their subdomains) to specified servers over a specified protocol (UDP or TCP). non-standard ports are supported.
 endef
 
-define Package/dnsforwarder/conffiles
+
+define Package/$(PKG_NAME)/conffiles
 /etc/dnsforwarder/dnsforwarder.conf
-/etc/dnsforwarder/china-banned
-/etc/dnsforwarder/base-gfwlist.txt
-/etc/dnsforwarder/userlist
 endef
-
-define Build/Prepare
-	$(Build/Prepare/Default)
-	$(foreach po,$(wildcard ${CURDIR}/i18n/zh-cn/*.po), \
-		po2lmo $(po) $(PKG_BUILD_DIR)/$(patsubst %.po,%.lmo,$(notdir $(po)));)
-endef
-
 
 CONFIGURE_ARGS += --enable-downloader=wget
 
-
-define Package/dnsforwarder/install
+define Package/$(PKG_NAME)/install
 	$(INSTALL_DIR) $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dnsforwarder $(1)/usr/bin/dnsforwarder
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/*.*.lmo $(1)/usr/lib/lua/luci/i18n/
-	$(CP) ./files/* $(1)/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/dnsforwarder $(1)/usr/bin/dnsforwarder	
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) files/etc/init.d/dnsforwarder $(1)/etc/init.d/dnsforwarder
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_CONF) files/etc/config/dnsforwarder $(1)/etc/config/dnsforwarder
+	$(INSTALL_DIR) $(1)/etc/dnsforwarder
+	$(INSTALL_CONF) $(PKG_BUILD_DIR)/default.config $(1)/etc/dnsforwarder/dnsforwarder.conf
 endef
 
-$(eval $(call BuildPackage,dnsforwarder))
+$(eval $(call BuildPackage,$(PKG_NAME)))
