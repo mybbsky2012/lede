@@ -42,6 +42,8 @@ uci set dhcp.lan.ra='server'
 uci set dhcp.lan.dhcpv6='server'
 uci set dhcp.lan.ra_management='1'
 uci set dhcp.lan.ra_default='1'
+uci set dhcp.lan.start='2'
+uci set dhcp.lan.limit='50'
 uci commit dhcp
 
 sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
