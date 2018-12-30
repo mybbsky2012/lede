@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=wrt3200acm-temperature
 PKG_VERSION:=1
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -39,11 +39,13 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/*.lmo $(1)/usr/lib/lua/luci/i18n/
 	$(INSTALL_DIR) $(1)/etc
 	$(INSTALL_DATA) ./files/index.htm $(1)/etc/index.htm
+	$(INSTALL_DATA) ./files/lease_status.htm $(1)/etc/lease_status.htm
 endef
 
 define Package/$(PKG_NAME)/postinst
 #!/bin/sh
 [ -f /etc/index.htm ] && mv /etc/index.htm /usr/lib/lua/luci/view/admin_status/index.htm
+[ -f /etc/lease_status.htm ] && mv /etc/lease_status.htm /usr/lib/lua/luci/view/admin_network/lease_status.htm
 exit 0
 endef
 
