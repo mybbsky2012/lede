@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 /dts-v1/;
 
 #include "mt7621.dtsi"
@@ -18,7 +19,7 @@
 		bootargs = "console=ttyS0,57600";
 	};
 
-	gpio-leds {
+	leds {
 		compatible = "gpio-leds";
 
 		internet {
@@ -34,7 +35,7 @@
 		};
 	};
 
-	gpio-keys-polled {
+	keys {
 		compatible = "gpio-keys-polled";
 		poll-interval = <20>;
 
@@ -53,7 +54,7 @@
 &spi0 {
 	status = "okay";
 
-	m25p80@0 {
+	flash@0 {
 		compatible = "jedec,spi-nor";
 		reg = <0>;
 		spi-max-frequency = <25000000>;
@@ -121,7 +122,7 @@
 &pinctrl {
 	state_default: pinctrl0 {
 		gpio {
-			ralink,group = "wdt";
+			ralink,group = "jtag", "wdt";
 			ralink,function = "gpio";
 		};
 	};

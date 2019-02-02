@@ -175,6 +175,9 @@ platform_do_upgrade() {
 			asus_nand_upgrade_tar 20951040 "$1"
 		fi
 		;;
+	linksys,ea6350v3)
+		platform_do_upgrade_linksys "$ARGV"
+		;;
 	openmesh,a42 |\
 	openmesh,a62)
 		PART_NAME="inactive"
@@ -195,6 +198,10 @@ platform_do_upgrade() {
 
 platform_nand_pre_upgrade() {
 	case "$(board_name)" in
+	linksys,ea6350v3)
+		CI_UBIPART="UBI_DEV"
+		CI_KERNPART="linux"
+		;;
 	meraki,mr33)
 		CI_KERNPART="part.safe"
 		;;
