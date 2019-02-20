@@ -1,0 +1,21 @@
+
+config ipsets
+	option ipset_name '3322_ip'
+	option enabled '0'
+	option dns_forward '1'
+	option upstream_dns_server '180.168.255.118'
+	list managed_domain 'members.3322.org'
+
+config ipsets
+	option ipset_name 'sohu_ip'
+	option enabled '0'
+	option dns_forward '1'
+	option upstream_dns_server '210.22.70.3'
+	list managed_domain 'pv.sohu.com'
+
+config ipsets
+	option ipset_name 'sspanel'
+	option enabled '0'
+	option dns_forward '1'
+	option upstream_dns_server '180.168.255.118'
+	list managed_domain 'sspanel.eastasia.cloudapp.azure.com'
