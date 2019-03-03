@@ -10,10 +10,10 @@ gen_config_file() {
     then
         return
     fi
-    [ ! -d /tmp/dnsmasq.d ] && mkdir -p /tmp/dnsmasq.d
+    [ ! -d /etc/dnsmasq.d ] && mkdir -p /etc/dnsmasq.d
     config_get ipset_name "${section}" "ipset_name"
-    config_file_name="/tmp/dnsmasq.d/ipset-${ipset_name}.conf"
     ipset -exist create ${ipset_name} hash:ip
+    config_file_name="/etc/dnsmasq.d/ipset-${ipset_name}.conf"
     rm -f "${config_file_name}"
     config_get_bool dns_forward "${section}" "dns_forward"
     if [ ${dns_forward} ]
