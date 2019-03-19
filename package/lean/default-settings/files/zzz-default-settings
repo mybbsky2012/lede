@@ -38,7 +38,7 @@ sed -i 's/root::0:0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999
 
 sed -i "s/# //g" /etc/opkg/distfeeds.conf
 
-uci set dhcp.lan.start='2'
+uci set dhcp.lan.start='6'
 uci set dhcp.lan.limit='50'
 uci commit dhcp
 
