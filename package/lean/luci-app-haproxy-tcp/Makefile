@@ -1,11 +1,19 @@
+# Copyright (C) 2019 Openwrt.org
+#
+# This is a free software, use it under Apache Licene 2.0 & GNU General Public License v3.0.
+#
+
 include $(TOPDIR)/rules.mk
 
+LUCI_TITLE:=luci for haproxy and shadowsocks
+LUCI_DEPENDS:=+haproxy
+LUCI_PKGARCH:=all
 PKG_NAME:=luci-app-haproxy-tcp
 PKG_VERSION=1.5
 PKG_RELEASE:=1
 PKG_MAINTAINER:=Alex Zhuo <1886090@gmail.com>
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
+include $(TOPDIR)/feeds/luci/luci.mk
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -32,22 +40,4 @@ echo haproxy disabled
 exit 0
 endef
 
-define Build/Prepare
-	$(foreach po,$(wildcard ${CURDIR}/i18n/zh-cn/*.po), \
-		po2lmo $(po) $(PKG_BUILD_DIR)/$(patsubst %.po,%.lmo,$(notdir $(po)));)
-endef
-
-define Build/Configure
-endef
-
-define Build/Compile
-endef
-
-define Package/$(PKG_NAME)/install
-	$(INSTALL_DIR) $(1)/usr/lib/lua/luci/i18n
-	$(INSTALL_DATA) $(PKG_BUILD_DIR)/*.*.lmo $(1)/usr/lib/lua/luci/i18n/
-	$(CP) ./files/* $(1)/
-
-endef
-
-$(eval $(call BuildPackage,$(PKG_NAME)))
+# call BuildPackage - OpenWrt buildroot signature
