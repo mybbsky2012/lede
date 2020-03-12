@@ -44,8 +44,8 @@ s=m:section(TypedSection,"main_server",translate("Main Server List"))
 
 	o=s:option(Flag,"validate",translate("validate"))
 
-	o=s:option(Value,"server_ip",translate("Proxy Server Address"))
-	o.datatype="host"
+	o=s:option(Value,"server_ip",translate("Proxy Server IP"))
+	
 	o=s:option(Value,"server_port",translate("Proxy Server Port"))
 	o.datatype="uinteger"
 	o=s:option(Value,"server_weight",translate("Weight"))
@@ -59,8 +59,8 @@ s=m:section(TypedSection,"backup_server",translate("Backup Server List"))
 
 	o=s:option(Flag,"validate",translate("validate"))
 
-	o=s:option(Value,"server_ip",translate("Proxy Server Address"))
-	o.datatype="host"
+	o=s:option(Value,"server_ip",translate("Proxy Server IP"))
+	
 	o=s:option(Value,"server_port",translate("Proxy Server Port"))
 	o.datatype="uinteger"
 -- ---------------------------------------------------
